@@ -9,18 +9,66 @@ Only to meet myself again.
 The door was locked, the clock stood still,
 Yet something moved against my will.</p></div><div class="status" id="status">FRAGMENT 1 OF 4</div><div class="controls"><button id="prev" disabled>← Previous</button><button id="next">Next fragment →</button></div><div class="final" id="final"><div class="section-title red">FINAL TRANSMISSION</div><h2 class="glitch" style="font-weight:400">IF YOU REMEMBER THE END,</h2><p>you have already reached the beginning.</p><p>Do not search for the person.<br>Search for the moment you first saw him.</p><p class="mono red">THE LOOP IS NOT CLOSED.</p><button id="restart">Return to the beginning</button></div></section><div class="footer">TICK · TOCK · TICK · TOCK<br><span class="red">IF YOU ARE READING THIS, IT HAS ALREADY HAPPENED.</span></div></main><div class="lightbox" id="lightbox"><button id="close">Close ×</button><img id="large" alt="Expanded evidence image"></div>
 <script>
-const $=id=>document.getElementById(id);function openBox(){ $('box').classList.add('open');$('hint').textContent='SOME SECRETS CANNOT BE BURIED';$('open').hidden=true;setTimeout(()=>$('message').classList.add('show'),800)}$('open').addEventListener('click',openBox);$('box').addEventListener('click',openBox);$('box').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')openBox()});$('enter').addEventListener('click',()=>{$('archive').hidden=false;$('archive').scrollIntoView({behavior:'smooth'});});
-const fragments=[['FRAGMENT 001 // THE LOOP','I chased the past to find the end,
+const $ = (id) => document.getElementById(id);
+function openBox() {
+  $('box').classList.add('open');
+  $('hint').textContent = 'SOME SECRETS CANNOT BE BURIED';
+  $('open').hidden = true;
+  window.setTimeout(() => $('message').classList.add('show'), 800);
+}
+$('open').addEventListener('click', openBox);
+$('box').addEventListener('click', openBox);
+$('box').addEventListener('keydown', (event) => {
+  if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openBox(); }
+});
+$('enter').addEventListener('click', () => {
+  $('archive').hidden = false;
+  $('archive').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+const fragments = [
+  ['FRAGMENT 001 // THE LOOP', `I chased the past to find the end,
 Only to meet myself again.
 The door was locked, the clock stood still,
-Yet something moved against my will.'],['FRAGMENT 002 // THE STRANGER','I saw a face I used to know,
+Yet something moved against my will.`],
+  ['FRAGMENT 002 // THE STRANGER', `I saw a face I used to know,
 From somewhere I had yet to go.
 I called his name; the lights went black,
-He smiled and whispered, “You’ve been back.”'],['FRAGMENT 003 // THE PHOTOGRAPH','The picture showed what wasn’t there,
+He smiled and whispered, “You’ve been back.”`],
+  ['FRAGMENT 003 // THE PHOTOGRAPH', `The picture showed what wasn’t there,
 A silent figure on the stair.
 I burned the frame, I watched it die,
-Then saw the same face passing by.'],['FRAGMENT 004 // THE MESSAGE','If you have found the words I hide,
+Then saw the same face passing by.`],
+  ['FRAGMENT 004 // THE MESSAGE', `If you have found the words I hide,
 You’ve crossed the line to the other side.
 Don’t ask who wrote this, don’t ask when,
-The end begins where you begin.']];let current=0;function render(){ $('rhymeNum').textContent=fragments[current][0];$('rhymeText').textContent=fragments[current][1];$('status').textContent=`FRAGMENT ${current+1} OF ${fragments.length}`;$('prev').disabled=current===0;$('next').textContent=current===fragments.length-1?'Reveal final transmission →':'Next fragment →';$('final').classList.remove('visible')}$('next').addEventListener('click',()=>{if(current<fragments.length-1){current++;render()}else{$('final').classList.add('visible');$('final').scrollIntoView({behavior:'smooth',block:'center'})}});$('prev').addEventListener('click',()=>{if(current>0){current--;render()}});$('restart').addEventListener('click',()=>{current=0;render();$('final').classList.remove('visible');window.scrollTo({top:0,behavior:'smooth'});});document.querySelectorAll('.file img').forEach(img=>img.addEventListener('click',()=>{$('large').src=img.src;$('lightbox').classList.add('open')}));$('close').addEventListener('click',()=>$('lightbox').classList.remove('open'));$('lightbox').addEventListener('click',e=>{if(e.target===$('lightbox'))$('lightbox').classList.remove('open')});
+The end begins where you begin.`]
+];
+let current = 0;
+function renderFragment() {
+  $('rhymeNum').textContent = fragments[current][0];
+  $('rhymeText').textContent = fragments[current][1];
+  $('status').textContent = `FRAGMENT ${current + 1} OF ${fragments.length}`;
+  $('prev').disabled = current === 0;
+  $('next').textContent = current === fragments.length - 1 ? 'Reveal final transmission →' : 'Next fragment →';
+  $('final').classList.remove('visible');
+}
+$('next').addEventListener('click', () => {
+  if (current < fragments.length - 1) { current += 1; renderFragment(); }
+  else { $('final').classList.add('visible'); $('final').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+});
+$('prev').addEventListener('click', () => { if (current > 0) { current -= 1; renderFragment(); } });
+$('restart').addEventListener('click', () => {
+  current = 0; renderFragment();
+  $('archive').hidden = true;
+  $('message').classList.remove('show');
+  $('open').hidden = false;
+  $('box').classList.remove('open');
+  $('hint').textContent = 'SOME THINGS ARE BETTER LEFT HIDDEN';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+document.querySelectorAll('.file img').forEach((img) => img.addEventListener('click', () => {
+  $('large').src = img.src; $('lightbox').classList.add('open');
+}));
+$('close').addEventListener('click', () => $('lightbox').classList.remove('open'));
+$('lightbox').addEventListener('click', (event) => { if (event.target === $('lightbox')) $('lightbox').classList.remove('open'); });
 </script></body></html>
