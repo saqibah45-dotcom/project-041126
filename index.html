@@ -19,6 +19,13 @@
 @media(hover:none){button:hover,.triquetra-trigger:hover{box-shadow:none;transform:none}.triquetra-trigger{filter:none}.triquetra-trigger svg,.triquetra-trigger path{filter:none}.base{box-shadow:none}.door-frame{box-shadow:0 0 0 1px #6e2525}.count-num{text-shadow:none}.file:after{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
+
+.matrix-glitch{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:rgba(0,0,0,.88);color:#e6e2da;text-align:center;opacity:0;visibility:hidden;pointer-events:none;font:clamp(22px,6vw,48px)/1.25 monospace;letter-spacing:.12em;text-shadow:2px 0 #a33a37,-2px 0 #5c8990;}
+.matrix-glitch.active{visibility:visible;animation:matrixReveal 1.65s steps(1,end) both}
+.matrix-glitch span{display:block;animation:matrixText .18s steps(2,end) infinite;}
+@keyframes matrixReveal{0%{opacity:0}8%{opacity:1;transform:translateX(3px)}13%{opacity:.25}20%{opacity:1;transform:translateX(-2px)}28%{opacity:.1}36%{opacity:1}48%{opacity:.75}55%{opacity:1}72%{opacity:.2}80%{opacity:1}100%{opacity:0;visibility:hidden}}
+@keyframes matrixText{0%{clip-path:inset(0 0 65% 0);transform:translateX(-2px)}50%{clip-path:inset(45% 0 20% 0);transform:translateX(2px)}100%{clip-path:inset(75% 0 0 0);transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.matrix-glitch span{animation:none}}
 .musicbox-card{margin:22px auto 0;padding:18px 14px;max-width:330px;border:1px solid #51453c;background:linear-gradient(145deg,rgba(20,17,15,.94),rgba(3,3,3,.96));box-shadow:0 0 22px rgba(122,77,45,.12);opacity:0;transform:translateY(8px);transition:opacity .8s ease,transform .8s ease}.door-overlay.music-started .musicbox-card{opacity:1;transform:none}.musicbox-icon{width:54px;height:54px;margin:0 auto 12px;border:1px solid #8a755b;border-radius:50%;display:grid;place-items:center;color:#d2bd98;font-size:28px;box-shadow:0 0 18px rgba(185,143,85,.15)}.musicbox-lines{font:clamp(11px,3vw,13px)/2 monospace;letter-spacing:2px;color:#c6bcae;text-transform:uppercase}.musicbox-lines p{margin:5px 0}.musicbox-lines p:last-child{color:#a33a37}.signal-flash{position:fixed;inset:0;z-index:30;background:#d7d7d7;display:none;pointer-events:none;mix-blend-mode:screen}.signal-flash.active{display:block;animation:signalBurst 1.15s steps(2) both}@keyframes signalBurst{0%{opacity:0}12%{opacity:.45;background:#fff}18%{opacity:.08;background:#a33a37}30%{opacity:.35;background:#fff}42%{opacity:0}57%{opacity:.2;background:#527078}65%{opacity:0}78%{opacity:.25;background:#fff}100%{opacity:0}}.musicbox-play{margin-top:12px;background:transparent;border-color:#51453c;color:#bdb2a2;font-size:9px;padding:9px 12px}@media(prefers-reduced-motion:reduce){.signal-flash.active{animation:none;opacity:0}.musicbox-card{transition:none}}
 </style></head><body><div class="grain"></div><main class="wrap"><button class="triquetra-trigger" id="triquetraTrigger" type="button" aria-label="Open the sealed door" aria-haspopup="dialog" title="The knot remembers"><svg viewBox="0 0 100 100" aria-hidden="true" role="img"><defs><linearGradient id="knotMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0e4c9"/><stop offset=".45" stop-color="#9e8c6e"/><stop offset=".72" stop-color="#ded0b4"/><stop offset="1" stop-color="#62513d"/></linearGradient></defs><circle cx="50" cy="50" r="46" fill="none" stroke="#57483a" stroke-width=".7"/><g fill="none" stroke="url(#knotMetal)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M50 17 C39 7 23 13 21 27 C19 39 31 47 43 54 C51 59 58 66 58 76 C58 88 44 94 35 86 C27 79 31 68 40 61 C49 54 60 49 69 42 C81 33 79 18 67 13 C56 8 47 15 46 25 C45 35 53 43 62 49 C73 56 83 65 77 78 C71 91 54 89 50 78 C46 67 53 56 62 49 C71 42 79 34 75 24 C70 11 54 10 50 17 Z"/><path d="M50 17 C44 27 39 35 30 40 C20 46 17 57 25 65 C32 72 43 68 50 61 C57 54 65 49 73 44 C84 37 87 25 78 17" stroke-width="2.2" opacity=".72"/></g></svg></button><div class="sigil-label">THE KNOT // TAP TO INTERACT</div><div class="date">WEDNESDAY // 04.11.2026</div><div class="tag" style="margin-top:25px">ARCHIVE NO. 041126 // FILE STATUS: UNSTABLE</div><h1 class="glitch">EVERYTHING<br>IS CONNECTED</h1><div class="sub">THE PAST · THE PRESENT · THE FUTURE</div>
 <div class="box" id="box" role="button" tabindex="0" aria-label="Open the mystery box"><div class="base"></div><div class="lid"></div></div><div class="sub" id="hint">SOME THINGS ARE BETTER LEFT HIDDEN</div><p><button id="open">Open the box</button></p><section class="message" id="message"><h2 class="glitch">THE BEGINNING IS THE END.</h2><p>Nothing ever disappears.<br>It only changes into something else.</p><p class="mono">YOU HAVE SEEN THIS BEFORE.</p><button id="enter">Enter the archive</button></section>
@@ -27,6 +34,7 @@ Only to meet myself again.
 The door was locked, the clock stood still,
 Yet something moved against my will.</p></div><div class="status" id="status">FRAGMENT 1 OF 8</div><div class="controls"><button id="prev" disabled>← Previous</button><button id="next">Next fragment →</button></div><div class="final" id="final"><div class="section-title red">FINAL TRANSMISSION</div><h2 class="glitch" style="font-weight:400">IF YOU REMEMBER THE END,</h2><p>you have already reached the beginning.</p><p>Do not search for the person.<br>Search for the moment you first saw him.</p><p class="mono red">THE LOOP IS NOT CLOSED.</p><button id="restart">Return to the beginning</button></div></section><div class="footer">TICK · TOCK · TICK · TOCK<br><span class="red">IF YOU ARE READING THIS, IT HAS ALREADY HAPPENED.</span></div></main><div class="lightbox" id="lightbox"><button id="close">Close ×</button><img id="large" alt="Expanded evidence image"></div>
 <div class="door-overlay" id="doorOverlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="doorWarning"><div class="door-scene"><div class="door-sigil">RESTRICTED ACCESS // 04.11.26</div><div class="door-frame" aria-hidden="true"><div class="door-panel"><div class="door-knob"></div></div></div><div class="door-warning" id="doorWarning">DON’T OPEN<br><span>BEFORE 4 NOVEMBER</span></div><div class="door-sub">IT HAS NOT HAPPENED YET.<br>KEEP THE DOOR CLOSED.</div><section class="musicbox-card" id="musicboxCard" aria-label="The message"><div class="musicbox-icon" aria-hidden="true">♫</div><div class="musicbox-lines"><p>EVERYTHING IS CONNECTED</p><p>TIME IS NOT LINEAR</p><p>IT IS JUST AN ILLUSION</p></div><button class="musicbox-play" id="musicPlay" type="button">▶ PLAY THE TRANSMISSION</button></section><button class="door-close" id="doorClose" type="button">STEP AWAY FROM THE DOOR</button></div></div>
+<div class="matrix-glitch" id="matrixGlitch" aria-hidden="true"><span>GLITCH IN THE MATRIX</span></div>
 <div class="signal-flash" id="signalFlash" aria-hidden="true"></div><audio id="matrixMusic" preload="none" loop src="succubi_musicbox.mp3"></audio>
 <script>
 const $ = (id) => document.getElementById(id);
@@ -143,16 +151,20 @@ let signalSequence = false;
 function showDoor(){
   if(signalSequence) return;
   signalSequence = true;
+  const matrixGlitch = $('matrixGlitch');
   signalFlash.classList.remove('active'); void signalFlash.offsetWidth; signalFlash.classList.add('active');
   sigilButton.setAttribute('aria-busy','true');
+  matrixGlitch.classList.remove('active'); matrixGlitch.setAttribute('aria-hidden','false'); void matrixGlitch.offsetWidth; matrixGlitch.classList.add('active');
+  // First: broken-signal flash and “GLITCH IN THE MATRIX”; then reveal the door and music box.
   window.setTimeout(async()=>{
+    matrixGlitch.classList.remove('active'); matrixGlitch.setAttribute('aria-hidden','true');
     doorOverlay.classList.add('active');
     doorOverlay.setAttribute('aria-hidden','false');
     doorOverlay.classList.add('music-started');
     try { await matrixMusic.play(); $('musicPlay').textContent='Ⅱ PAUSE TRANSMISSION'; }
     catch(e) { $('musicPlay').textContent='▶ PLAY THE TRANSMISSION'; }
     $('doorClose').focus(); sigilButton.removeAttribute('aria-busy'); signalSequence=false;
-  },1150);
+  },1750);
 }
 function hideDoor(){
   doorOverlay.classList.remove('active','music-started'); doorOverlay.setAttribute('aria-hidden','true');
