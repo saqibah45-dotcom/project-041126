@@ -292,7 +292,53 @@ $('lightbox').addEventListener('click', (event) => { if (event.target === $('lig
 
 const sigilButton = $('triquetraTrigger');
 const doorOverlay = $('doorOverlay');
-function showDoor(){doorOverlay.classList.add('active');doorOverlay.setAttribute('aria-hidden','false');$('doorClose').focus();}
+// Small synthesized sound effects: no external audio files needed.
+let doorAudioContext;
+function playDoorSequence(){
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    doorAudioContext = doorAudioContext || new AudioCtx();
+    const ctx = doorAudioContext;
+    if (ctx.state === 'suspended') ctx.resume();
+    const now = ctx.currentTime;
+    // Three muted, hollow knocks against wood.
+    [0, 0.23, 0.49].forEach((delay, i) => {
+      const start = now + delay;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(i === 1 ? 105 : 82, start);
+      osc.frequency.exponentialRampToValueAtTime(43, start + 0.12);
+      filter.type = 'lowpass'; filter.frequency.value = 420;
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(0.34, start + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.19);
+      osc.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+      osc.start(start); osc.stop(start + 0.2);
+    });
+    // A low, creaking door begins just after the final knock.
+    const start = now + 0.78;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const filter = ctx.createBiquadFilter();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(68, start);
+    osc.frequency.linearRampToValueAtTime(39, start + 0.85);
+    osc.frequency.linearRampToValueAtTime(53, start + 1.2);
+    filter.type = 'lowpass'; filter.frequency.setValueAtTime(190, start);
+    filter.frequency.linearRampToValueAtTime(520, start + 0.6);
+    filter.frequency.linearRampToValueAtTime(140, start + 1.2);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.linearRampToValueAtTime(0.11, start + 0.12);
+    gain.gain.setValueAtTime(0.08, start + 0.75);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + 1.25);
+    osc.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+    osc.start(start); osc.stop(start + 1.27);
+  } catch (e) { /* Audio is an optional atmospheric enhancement. */ }
+}
+function showDoor(){playDoorSequence();doorOverlay.classList.add('active');doorOverlay.setAttribute('aria-hidden','false');$('doorClose').focus();}
 function hideDoor(){doorOverlay.classList.remove('active');doorOverlay.setAttribute('aria-hidden','true');sigilButton.focus();}
 sigilButton.addEventListener('click',showDoor);
 $('doorClose').addEventListener('click',hideDoor);
